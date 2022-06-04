@@ -1,0 +1,10 @@
+body{
+    font-family: 'K2D', sans-serif;
+    
+  }
+.page-footer{
+    overflow: hidden;
+    position: fixed-bott;
+    bottom: 0;
+    width: 100%;
+  }
