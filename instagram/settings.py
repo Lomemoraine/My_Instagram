@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'cloudinary'
 ]
+ACCOUNT_ACTIVATION_DAYS = 21
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,8 +85,10 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'instagram',
+        'USER': 'raine',
+    'PASSWORD':'gift1234',
     }
 }
 
@@ -113,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
