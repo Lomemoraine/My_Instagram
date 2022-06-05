@@ -8,3 +8,9 @@ body{
     bottom: 0;
     width: 100%;
   }
+  .register{
+      /* background-color: aqua; */
+      width: fit-content;
+      margin-left: 40%;
+      margin-bottom: 5%;
+  }

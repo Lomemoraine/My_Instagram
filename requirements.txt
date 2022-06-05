@@ -3,11 +3,11 @@ backports.zoneinfo==0.2.1
 beautifulsoup4==4.11.1
 certifi==2022.5.18.1
 cloudinary==1.29.0
-confusable-homoglyphs==3.2.0
+crispy-bootstrap5==0.6
 Django==4.0.5
 django-bootstrap4==22.1
+django-crispy-forms==1.14.0
 psycopg2-binary==2.9.3
-python-decouple==3.6
 six==1.16.0
 soupsieve==2.3.2.post1
 sqlparse==0.4.2
