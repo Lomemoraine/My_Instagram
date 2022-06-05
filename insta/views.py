@@ -31,6 +31,7 @@ def sign_up(request):
 def login(request):
     return render(request, 'registration/login.html')
 
+@login_required(login_url='/login')
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -39,9 +40,51 @@ def create_post(request):
             post.post_owner=request.user
             post.save()
             return redirect('/home')
-        else:
-            form =PostForm()
-        return render(request,'general/create_post.html',{'form': form})
+    else:
+        form =PostForm()
+    return render(request,'general/create_post.html',{'form': form})
+
+@login_required(login_url='/login')
+def profile(request):
+    context = {
+        'posts': Post.objects.filter(post_owner=request.user).all()
+    }
+    return render(request, 'general/profile.html',context )
+
+@login_required(login_url='/login')
+def author_profile(request):
+    context = {
+        'posts': Post.objects.filter(post_owner=request.user).all(),
+        
+    }
+    # if request.user == Post.objects.post.user:  
+    return redirect('profile')
+    # else:
+
+@login_required(login_url='/login')
+def editProfile(request):
+    profile = Profile(user=request.user)
+
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+    return render(request, 'general/edit_profile.html', context)
         
     
 

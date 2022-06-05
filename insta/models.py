@@ -1,7 +1,9 @@
 from datetime import timezone
+from distutils.command.upload import upload
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from django.urls import reverse
 
 
 # Create your models here.
@@ -28,25 +30,28 @@ class Post(models.Model):
   
     def save_post(self):
         self.save()
+    
+    def get_absolute_url(self):
+        return reverse('insta-home')
 
     
-# class Follow(models.Model):
-#     follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
-#     followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
+class Follow(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
 
-#     def __str__(self):
-#         return f'{self.follower} Follow'
+    def __str__(self):
+        return f'{self.follower} Follow'
     
-# class Comment(models.Model):
-#     user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
-#     user_comment = models.CharField(blank=False, max_length=255)
-#     post_associated = models.ForeignKey(Post,null=True,on_delete=models.CASCADE)
+class Comment(models.Model):
+    user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
+    user_comment = models.CharField(blank=False, max_length=255)
+    post_associated = models.ForeignKey(Post,null=True,on_delete=models.CASCADE)
 
-#     def __str__(self):
-#         return self.user_comment
+    def __str__(self):
+        return self.user_comment
     
-# class Like(models.Model):
-#     vote = models.IntegerField()
-#     user_vote = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
-#     post_voted = models.OneToOneField(Post,null=True,on_delete=models.CASCADE)
+class Like(models.Model):
+    vote = models.IntegerField()
+    user_vote = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
+    post_voted = models.OneToOneField(Post,null=True,on_delete=models.CASCADE)
        

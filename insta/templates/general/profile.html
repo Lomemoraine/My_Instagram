@@ -1,0 +1,127 @@
+{% extends "general/base.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="content-section">
+	<div class="container mx-auto d-flex flex-row">
+		<div class="container col-3 mx-auto">
+			<img
+				width="150"
+				height="150"
+				class="rounded-circle mx-3"
+				src="{{ user.profile.image.url }}"
+			/>
+		</div>
+		<div class="container">
+			<div class="col-md-6 d-flex flex-row mx-3 px-2 justify-content-start">
+				<h2 class="account-heading">{{user.username}}</h2>
+
+				<span class="btn border mx-3"
+					><a
+						class="text-decoration-none text-dark"
+						href="{% url 'edit_profile'%}"
+						>Edit Profile</a
+					></span
+				>
+				<span>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="32"
+						height="32"
+						fill="currentColor"
+						class="bi bi-gear-wide"
+						viewBox="0 0 16 16"
+					>
+						<path
+							d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434L8.932.727zM8 12.997a4.998 4.998 0 1 1 0-9.995 4.998 4.998 0 0 1 0 9.996z"
+						/>
+					</svg>
+				</span>
+			</div>
+			<div class="container my-2">
+				<span class="p-2"> <b>22 </b> posts </span>
+
+				<span class="p-2"> <b>20,000 </b> Followers </span>
+				<span class="p-2"> <b>3 </b> Following </span>
+			</div>
+			<div class="container my-2">
+				<p class="text-secondary mx-2">{{ user.email }}</p>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="container-fluid">
+			<style>
+				.thumbnail {
+					object-fit: cover;
+					width: 230px;
+					height: 230px;
+					padding: 5px;
+					margin-bottom: 5px;
+				}
+			</style>
+			<div class="container mx-auto col-lg-6 d-flex flex-wrap">
+				{% for post in posts %}
+
+				<div class="m-1" style="width: 180px; height: 180px; overflow: hidden">
+					<img
+						data-bs-toggle="modal"
+						type="button"
+						data-bs-target="#pic{{post.id}}"
+						class="thumbnail"
+						style="object-fit: cover"
+						src="{{post.post_image.url}}"
+						alt=""
+					/>
+					<!-- Modal -->
+					<div
+						class="modal fade"
+						id="pic{{post.id}}"
+						data-bs-backdrop="static"
+						data-bs-keyboard="false"
+						tabindex="-1"
+						aria-labelledby="staticBackdropLabel"
+						aria-hidden="true"
+						style=""
+					>
+						<div class="modal-dialog modal-xl w-75 h-100">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button
+										type="button"
+										class="btn-close"
+										data-bs-dismiss="modal"
+										aria-label="Close"
+									></button>
+								</div>
+								<div class="modal-body">
+									<h5
+										class="modal-title text-center text-decoration-underline fw-bold h6"
+										id="staticBackdropLabel"
+										>{{ post.post_caption}}</h5
+									>
+									<img
+										class="m-2 rounded-3 col-lg-6 img-fluid px-sm-2 mx-auto"
+										src="{{post.image.url}}"
+										alt=""
+										width=""
+										height=""
+									/>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="button"
+										class="btn btn-warning"
+										data-bs-dismiss="modal"
+										>Close</button
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{% endfor%}
+			</div>
+		</div>
+	</div>
+	<!-- FORM HERE -->
+</div>
+{% endblock content %}
