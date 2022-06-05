@@ -1,6 +1,6 @@
 from email import message
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.core.mail import send_mail
@@ -30,6 +30,20 @@ def sign_up(request):
     return render(request, 'registration/signup.html', {'form': form})
 def login(request):
     return render(request, 'registration/login.html')
+
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post=form.save(commit=False)
+            post.post_owner=request.user
+            post.save()
+            return redirect('/home')
+        else:
+            form =PostForm()
+        return render(request,'general/create_post.html',{'form': form})
+        
+    
 
 
 
