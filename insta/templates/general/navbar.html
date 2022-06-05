@@ -13,12 +13,19 @@
       </div>
       <div>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          {% if user.is_authenticated %}
+          <span class="navbar-text active">Logged in as {{user.username}} |</span>
+            <li class="nav-item active">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            {% else %}
         <li class="nav-item active">
           <a class="nav-link" href="/login">Login</a>
         </li>
         
       </ul>
     </div>
+    {% endif %}
   </div>
      
     
