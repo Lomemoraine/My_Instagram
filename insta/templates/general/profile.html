@@ -43,6 +43,7 @@
 			</div>
 			<div class="container my-2">
 				<p class="text-secondary mx-2">{{ user.email }}</p>
+				<p class="text-secondary mx-2">{{user.profile.bio}}</p>
 			</div>
 		</div>
 	</div>
@@ -57,68 +58,16 @@
 					margin-bottom: 5px;
 				}
 			</style>
-			<div class="container mx-auto col-lg-6 d-flex flex-wrap">
-				{% for post in posts %}
-
-				<div class="m-1" style="width: 180px; height: 180px; overflow: hidden">
-					<img
-						data-bs-toggle="modal"
-						type="button"
-						data-bs-target="#pic{{post.id}}"
-						class="thumbnail"
-						style="object-fit: cover"
-						src="{{post.post_image.url}}"
-						alt=""
-					/>
-					<!-- Modal -->
-					<div
-						class="modal fade"
-						id="pic{{post.id}}"
-						data-bs-backdrop="static"
-						data-bs-keyboard="false"
-						tabindex="-1"
-						aria-labelledby="staticBackdropLabel"
-						aria-hidden="true"
-						style=""
-					>
-						<div class="modal-dialog modal-xl w-75 h-100">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button
-										type="button"
-										class="btn-close"
-										data-bs-dismiss="modal"
-										aria-label="Close"
-									></button>
-								</div>
-								<div class="modal-body">
-									<h5
-										class="modal-title text-center text-decoration-underline fw-bold h6"
-										id="staticBackdropLabel"
-										>{{ post.post_caption}}</h5
-									>
-									<img
-										class="m-2 rounded-3 col-lg-6 img-fluid px-sm-2 mx-auto"
-										src="{{post.image.url}}"
-										alt=""
-										width=""
-										height=""
-									/>
-								</div>
-								<div class="modal-footer">
-									<button
-										type="button"
-										class="btn btn-warning"
-										data-bs-dismiss="modal"
-										>Close</button
-									>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="user-posts-display">
+				<div class="row user-posts d-flex justify-content-center">
+					{% for post in user_posts %}
+					<button type="button" class="btn image-btn" data-bs-toggle="modal" data-bs-target="#{{ post.image_name }}">
+						<img src="{{post.post_image.url}}" alt="" class="thumbnail">
+					</button>
 
 				{% endfor%}
+				</div>
+			</div
 			</div>
 		</div>
 	</div>

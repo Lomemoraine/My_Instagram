@@ -45,11 +45,21 @@ def create_post(request):
     return render(request,'general/create_post.html',{'form': form})
 
 @login_required(login_url='/login')
-def profile(request):
-    context = {
-        'posts': Post.objects.filter(post_owner=request.user).all()
+def profile(request,username):
+    user_name = User.objects.get(username=username)
+    user_profile = Profile.objects.get(user=user_name.id)
+
+    user_posts = Post.objects.filter(post_owner=user_name.id)
+    # post_comments = Comment.objects.all()
+    
+    context={
+        'user_name':user_name,
+        'user_profile':user_profile,
+        'user_posts':user_posts,
+        # 'post_comments':post_comments
     }
-    return render(request, 'general/profile.html',context )
+    # return render(request,'profile.html',context=context)
+    return render(request, 'general/profile.html',context=context )
 
 @login_required(login_url='/login')
 def author_profile(request):
@@ -63,7 +73,7 @@ def author_profile(request):
 
 @login_required(login_url='/login')
 def editProfile(request):
-    profile = Profile(user=request.user)
+    # profile = Profile(user=request.user)
 
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
