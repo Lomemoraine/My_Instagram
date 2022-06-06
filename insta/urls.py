@@ -13,6 +13,7 @@ urlpatterns = [
     path('edit_profile/', views.editProfile, name='edit_profile'),
     path('search/', views.search_profile, name='search'),
     path('profile/<str:username>/',views.profile,name='profile'),
+    path('like-post/', views.like_post, name='like'),
     
     
 ]

@@ -105,3 +105,25 @@ def search_profile(request):
         if User.objects.filter(username=user_name):
             return redirect ('profile', username=user_name)
     return render(request,'general/search.html')
+
+@login_required(login_url='login')
+def like_post(request):
+    user = request.user
+
+    if request.method == 'POST':
+        post_id = request.POST.get('post')
+        post_obj = Post.objects.get(id = post_id)
+        if user in post_obj.liked.all():
+            post_obj.liked.remove(user)
+        else :
+            post_obj.liked.add(user)
+
+        like, created = Like.objects.get_or_create(user=user, post_id=post_id)
+        if created:
+            if like.value == 'like':
+                like.value == 'unlike'
+            else :
+                like.value == 'like'
+            
+        like.save()    
+    return redirect('home')

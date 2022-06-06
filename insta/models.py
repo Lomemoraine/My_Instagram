@@ -1,5 +1,6 @@
 from datetime import timezone
 from distutils.command.upload import upload
+from unittest.mock import DEFAULT
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
@@ -16,10 +17,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=300, default="Share more about yourself", blank=True)
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
-        try:
-            instance.profile.save()
-        except ObjectDoesNotExist:
-            Profile.objects.create(user=instance)
+        Profile.objects.get_or_create(user=instance)
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
@@ -78,9 +76,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.user_comment
-    
+LIKED_CHOICES = (
+    ('like', 'like'),
+    ('unlike', 'unlike')
+)
 class Like(models.Model):
-    vote = models.IntegerField()
-    user_vote = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
-    post_voted = models.OneToOneField(Post,null=True,on_delete=models.CASCADE)
-     
+    user = models.ForeignKey(Profile,default='SOMESTRING' ,on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    value = models.CharField(choices=LIKED_CHOICES, max_length=10)
+
+    def __str__(self):
+        return str(self.post)
