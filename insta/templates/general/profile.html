@@ -60,7 +60,7 @@
 			</style>
 			<div class="user-posts-display">
 				<div class="row user-posts d-flex justify-content-center">
-					{% for post in user_posts %}
+					{% for post in posts %}
 					<button type="button" class="btn image-btn" data-bs-toggle="modal" data-bs-target="#{{ post.image_name }}">
 						<img src="{{post.post_image.url}}" alt="" class="thumbnail">
 					</button>

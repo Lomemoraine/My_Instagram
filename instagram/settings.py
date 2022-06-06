@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instastories',
+        'NAME': 'insta',
         'USER': 'raine',
     'PASSWORD':'gift1234',
     }
@@ -157,7 +157,7 @@ cloudinary.config(
     api_key ="825938427599163",
     api_secret ="KFYIt-ZMSDBPjQWaBqNhcNnXVLc"
 )
-LOGIN_REDIRECT_URL = '/profile'
+LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/login'
 # SMTP CONFIGURATIONS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
