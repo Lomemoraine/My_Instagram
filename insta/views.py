@@ -46,16 +46,16 @@ def profile(request):
     return render(request, 'general/profile.html',context )
 
 
-# @login_required(login_url='/login')
-# def author_profile(request):
-#     context = {
-#         'posts': Post.objects.filter(post_owner=request.user).all(),
+@login_required(login_url='/login')
+def author_profile(request):
+    context = {
+        'posts': Post.objects.filter(post_owner=request.user).all(),
         
-#     }
-#     # if request.user == Post.objects.post.user:  
-#     return redirect('profile')
-#     # else:
-#     #     return render(request, 'users_app/not_user_profile.html',contex
+    }
+    # if request.user == Post.objects.post.user:  
+    return redirect('profile')
+    # else:
+    #     return render(request, 'users_app/not_user_profile.html',contex
     
 @login_required
 def editProfile(request):
