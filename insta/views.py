@@ -83,33 +83,6 @@ def editProfile(request):
 
 
 
-# @login_required(login_url='/login')
-# def create_post(request):
-    # user=Profile.objects.all()
-    # form = PostForm()
-
-    # if request.method == "POST":
-    #     form = PostForm(request.POST,request.FILES)
-    #     print(form)
-    #     if form.is_valid():
-    #         user = request.user
-            
-    #         post_image =form.cleaned_data.get('post_image')
-    #         post_caption = form.cleaned_data.get('post_caption')
-    #         post_owner = Profile.objects.get(user=user.id)
-            
-    #         new_post = Post(
-    #             post_image=post_image,
-    #             post_caption=post_caption,
-    #             post_owner=post_owner
-    #         )
-    #         new_post.save_post()
-    #         return redirect('home')
-
-    # context={
-    #     'form':form
-    # }
-    # return render(request,'general/create_post.html',context=context)
 
 
 @login_required(login_url='/login')
@@ -126,3 +99,15 @@ def create_post(request):
         form = PostForm()
     return render(request,'general/create_post.html', {"form":form})
 
+def search_profile(request):
+
+    if 'profile' in request.GET and request.GET["profile"]:
+        search_term = request.GET.get("profile")
+        searched_profiles = Profile.search_profile(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'general/search.html',{"message":message,"photos": searched_profiles})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
