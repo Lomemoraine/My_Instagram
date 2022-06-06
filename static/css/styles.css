@@ -8,9 +8,15 @@ body{
     bottom: 0;
     width: 100%;
   }
-  .register{
-      /* background-color: aqua; */
+  /* .register{
+      background-color: aqua;
       width: fit-content;
       margin-left: 40%;
       margin-bottom: 5%;
+  } */
+  .signup{
+    width:fit-content;
+    background-color:azure;
+    margin-left: 40%;
+    margin-bottom: 5%;
   }

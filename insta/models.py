@@ -54,4 +54,4 @@ class Like(models.Model):
     vote = models.IntegerField()
     user_vote = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
     post_voted = models.OneToOneField(Post,null=True,on_delete=models.CASCADE)
-       
+     
