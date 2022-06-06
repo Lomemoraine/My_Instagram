@@ -35,8 +35,11 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
     @classmethod
-    def search_profile(cls, name):
-        return cls.objects.filter(user__username__icontains=name).all()
+    def search_profile(cls,username):
+        '''Get a user profile given the username'''
+        user = User.objects.get(username=username)
+        user_profile = Profile.objects.get(user=user.id)
+        return user_profile
 
     def __str__(self):
             return f'{self.user} Profile'

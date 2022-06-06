@@ -18,8 +18,9 @@
 								<a href="#"> <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"alt=""width="150"class="d-inline-block align-text-top"/></a>
 							</li>
 							<li>
-								<form class="form-inline my-2 my-lg-0 " action="">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Search users" name="search" aria-label="Search">
+								<form class="form-inline my-2 my-lg-0 " action="/search/" method="POST">
+									{% csrf_token %}
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search users" name="username" aria-label="Search" id='search-text'>
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit"style="font-size:20px;color:white;font-weight:bold">Search</button>
                 </form>
 							</li>

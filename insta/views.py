@@ -39,7 +39,7 @@ def login(request):
     return render(request, 'registration/login.html')
 
 @login_required(login_url='/login')
-def profile(request):
+def profile(request,username):
     context = {
         'posts': Post.objects.filter(post_owner=request.user).all()
     }
@@ -100,14 +100,8 @@ def create_post(request):
     return render(request,'general/create_post.html', {"form":form})
 
 def search_profile(request):
-
-    if 'profile' in request.GET and request.GET["profile"]:
-        search_term = request.GET.get("profile")
-        searched_profiles = Profile.search_profile(search_term)
-        message = f"{search_term}"
-
-        return render(request, 'general/search.html',{"message":message,"photos": searched_profiles})
-
-    else:
-        message = "You haven't searched for any term"
-        return render(request, 'search.html',{"message":message})
+    if request.method == 'POST':
+        user_name = request.POST.get('username')
+        if User.objects.filter(username=user_name):
+            return redirect ('profile', username=user_name)
+    return render(request,'general/search.html')

@@ -12,6 +12,7 @@ urlpatterns = [
     path('author_profile/', views.author_profile, name='author_profile'),
     path('edit_profile/', views.editProfile, name='edit_profile'),
     path('search/', views.search_profile, name='search'),
+    path('profile/<str:username>/',views.profile,name='profile'),
     
     
 ]

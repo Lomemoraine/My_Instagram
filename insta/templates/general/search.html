@@ -1,14 +1,9 @@
-{%extends 'general/base.html'%} 
+{% extends 'general/base.html' %}
 {% block content %}
-<div class="container-fluid">
-
-  <div class="row">
-    {% if photos %}
-      <h2 class="text-center text-white">Found {{ profile|length }} of searched term {{message}}</h2>
-    {% else %}
-      <h2 class="text-center text-white"> Could not find user{{message}}</h2>
-    {% endif %}
-
-  </div>
+<br><br><br>
+<div class="search-user-result text-center">
+    <br><br>
+    <h3 class="font-weight-bold">Oops!! We could not find the user.</h3><br>
+    <h4>User is not in our database,could it be they are not registered&#129300;</h4>
 </div>
 {% endblock %}
