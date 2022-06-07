@@ -157,9 +157,10 @@ cloudinary.config(
     api_key ="825938427599163",
     api_secret ="KFYIt-ZMSDBPjQWaBqNhcNnXVLc"
 )
-LOGIN_REDIRECT_URL = '/home'
-LOGOUT_REDIRECT_URL = '/login'
+LOGIN_REDIRECT_URL = 'index'
+# LOGOUT_REDIRECT_URL = '/login'
 # SMTP CONFIGURATIONS
+LOGIN_URL ='login'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT = 587
