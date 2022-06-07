@@ -9,10 +9,12 @@ from django.contrib import messages
 from .models import Profile
 
 # Create your views here.
+@login_required()
 def index(request):
+    all_posts = Post.objects.all().order_by('id').reverse()
    
     
-    return render(request,'index.html')
+    return render(request,'index.html',{"all_posts":all_posts[::1]})
 def signup(request):
     if request.method == "POST":
         form =RegisterForm(request.POST)
@@ -47,6 +49,7 @@ def profile(request):
     
   
     return render(request, 'registration/profile.html')
+@login_required()
 def editProfile(request):
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST,instance=request.user)
@@ -66,7 +69,38 @@ def editProfile(request):
         'p_form':p_form
     }
     return render(request, 'registration/edit_profile.html',context)
-    
+def createPost(request):
+    c_form = PostCreateForm()
+
+    if request.method == "POST":
+        c_form=PostCreateForm(request.POST,request.FILES)
+        if c_form.is_valid():
+            user=request.user
+            
+            image = c_form.cleaned_data.get('image')
+            image_name = c_form.cleaned_data.get('image_name')
+            image_caption  = c_form.cleaned_data.get('image_caption')
+            image_owner = Profile.objects.get(user=user.id)
+            
+            new_post = Post(
+                image=image,
+                image_name=image_name,
+                image_caption=image_caption,
+                image_owner=image_owner
+            )
+            new_post.save_post()
+            return redirect('index')
+        else:
+            c_form = PostCreateForm()
+       
+
+    context={
+        'c_form':c_form
+    }
+    return render(request,'create_post.html',context=context)
+        
+
+
     
       
 
