@@ -1,0 +1,105 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="">
+			<nav class="navbar navbar-light bg-light"style="background-color: #fff !important">
+				<div class="container d-flex flex-row flex-wrap col">
+					<div class="container col mx-auto">
+					
+            <ul class="list-unstyled d-flex flex-row justify-content-center mx-auto">
+							<li class="navbar-brand my-auto">
+								<a href="#"> <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"alt=""width="150"class="d-inline-block align-text-top"/></a>
+							</li>
+							<li>
+								<form class="form-inline my-2 my-lg-0 " action="/search/" method="POST">
+									{% csrf_token %}
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search users" name="username" aria-label="Search" id='search-text'>
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit"style="font-size:20px;color:white;font-weight:bold">Search</button>
+                </form>
+							</li>
+							<li class="mx-3 my-auto nav-item">
+                <a href="">
+                <svg xmlns="http://www.w3.org/2000/svg"width="32"height="32"fill="dark"class="bi bi-house"viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+								<path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+								</svg>
+              </a>
+							</li>
+							<li class="mx-3 my-auto nav-item"> 
+                <a href="#" class="position-relative">
+									<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="dark" class="bi bi-messenger"viewBox="0 0 16 16">
+										<path d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.639.639 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.639.639 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76zm5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z"/>
+									</svg>
+									<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">9+</span>
+                  </a>
+							</li>
+							<li class="mx-3 my-auto nav-item">
+								<a href="">
+									<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="dark" class="bi bi-plus-square" viewBox="0 0 16 16">
+										<path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+										<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+									</svg>
+								</a>
+							</li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"	href="#"id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<img src="" alt="" class="rounded-circle"width="32" height="32"/>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarDropdown"> 
+									<li><a class="dropdown-item" href="">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="16"
+												fill="currentColor"
+												class="bi bi-person-circle"
+												viewBox="0 0 16 16"
+											>
+												<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+												<path
+													fill-rule="evenodd"
+													d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+												/>
+											</svg>
+											<small>Profile</small>
+										</a></li>
+								<li><a class="dropdown-item" href="#">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="16"
+												fill="currentColor"
+												class="bi bi-gear-wide"
+												viewBox="0 0 16 16">
+												<path d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434L8.932.727zM8 12.997a4.998 4.998 0 1 1 0-9.995 4.998 4.998 0 0 1 0 9.996z"/>
+											</svg>
+											<small>Settings</small></a
+										></li>
+									
+                    <div class="dropdown-divider"></div>
+									<li><a class="dropdown-item" href="/logout"><small>Log out</small></a></li>
+								</ul>
+							</li>
+						</ul>
+						
+						<!-- <div class="navbar-brand mx-auto my-auto">
+							<img
+								src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+								alt=""
+								class="mx-auto d-inline-block align-text-top"
+							/>
+						</div> -->
+						
+					</div>
+				</div>
+			</nav>
+		</div>
+	</body>
+</html>
