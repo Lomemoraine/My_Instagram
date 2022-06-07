@@ -1,8 +1,46 @@
 {%extends 'base.html'%}
 
 {% block content %}
-<div class="container">
-    <h1 class='text-center'>my instagram </h1>
+<div class="container mx-auto mt-4">
+    <div class="row">
+        {% for post in all_posts %}
+        <div class="">
+            <div class="card" style="width: 33rem;">
+                <div class="card-body">
+                    <div class="text-start border-bottom m-2 p-2 d-flex flex-row justify-content-between">
+						<span class="fw-bold ml-2">
+							<img src="{{post.image_owner.picture.url}}" alt="" class="rounded-circle" width="32" height="32"/>
+                        <span class="mx-2"><a href="{% url 'profile'%}"><small>{{post.image_owner.user.username}}</small></a></span>
+								
+							</span>
+
+						<div class="my-auto btn">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								class="bi bi-three-dots"
+								viewBox="0 0 16 16">
+							
+								<path
+									d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
+								/>
+							</svg>
+						</div>
+					</div>
+                    <div class="image">
+                        <img class="card-img-top" src="{{post.image.url}}" alt="Card image cap">
+                    </div>
+                    <div class="foot">
+                        <h6>{{post.image_caption}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
 </div>
 {{ block.super }}
 {% endblock %}
