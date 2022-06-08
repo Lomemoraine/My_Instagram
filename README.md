@@ -56,6 +56,7 @@ As a user of the application I should be able to:
 * Css and Boostrap
 * PostgreSQL
 ## Known Bugs
-* If you encounter any bug while using the application ,suggestions are invited.
+* A user cannot update their profile before atleast creating one post
+* If you encounter any other bug while using the application ,suggestions are invited.
 ## License
 * *MIT License:*
