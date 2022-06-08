@@ -1,8 +1,7 @@
 from django import forms
+from .models import Image,Profile,Comment
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile,Post,Comment
-
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -11,34 +10,20 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ["username", "email", "password1","password2"]
         
-class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
-
+class UploadForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['username', 'email']
-
-
-class ProfileUpdateForm(forms.ModelForm):
+        model = Image
+        fields = ('image','caption')
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['picture' ,'bio']
-        
-class PostCreateForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ['image','image_name','image_caption']
-        exclude = ['image_owner','likes','comments']
-        
+        fields = ('photo','bio')
 class CommentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['comment'].widget = forms.TextInput()
+        self.fields['comment'].widget.attrs['placeholder'] = 'Add a comment....'
     class Meta:
         model = Comment
-        fields = ['comment']
-        widgets = {
-            'comment': forms.TextInput(attrs={
-                'class': "form-control",
-                'style': 'max-width: 100%;',
-                'placeholder': 'Comment'
-                })
-            }
+        fields = ('comment',)
 

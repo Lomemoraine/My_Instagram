@@ -1,51 +1,73 @@
-from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.exceptions import ObjectDoesNotExist
 from cloudinary.models import CloudinaryField
-
-
-
-# Create your models here.
+class Image(models.Model):
+    user = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='images')
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
+    name = models.CharField(max_length=30)
+    caption = models.CharField(max_length=30)
+    image = CloudinaryField('image')
+    pub_date = models.DateTimeField(auto_now_add=True, null=True)
+    class Meta:
+        ordering = ["-pk"]
+    @classmethod
+    def images(cls):
+        images = cls.objects.all()
+        return images
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+    def save_image(self):
+        self.save()
+    def delete_image(self):
+        self.delete()
+    @classmethod
+    def update_image(cls,old,new):
+        cap = Image.objects.filter(caption=old).update(caption=new)
+        return cap
+    def __str__(self):
+        return self.name
 class Profile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE,)
-    bio = models.CharField(default="My Bio", max_length = 40)
-    picture = CloudinaryField('images', default='https://res.cloudinary.com/dcfb3gqzg/image/upload/v1654542339/bclz5p1q2ch81qz9ukpz.jpg')
-    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile',null=True)
+    bio = models.CharField(max_length=300)
+    name = models.CharField(blank=True, max_length=120)
+    photo = CloudinaryField('image',default='http://res.cloudinary.com/dim8pysls/image/upload/v1639001486/x3mgnqmbi73lten4ewzv.png')
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        try:
+            instance.profile.save()
+        except ObjectDoesNotExist:
+            Profile.objects.create(user=instance)
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+    @classmethod
+    def profile(cls):
+        profiles = cls.objects.all()
+        return profiles
+    def photo_url(self):
+        if self.photo and hasattr(self.photo, 'url'):
+            return self.photo.url
+    def save_profile(self):
+        self.user
     def __str__(self):
-        return f'{self.user.username} Profile'
-    
-    
-class Post(models.Model):
-    image =CloudinaryField('images', blank=False)
-    image_name = models.CharField(max_length=50,blank=True)
-    image_caption = models.TextField(max_length=255,blank=True)
-    image_owner = models.ForeignKey(Profile,null=True,on_delete=models.SET_NULL)
-    # likes = models.ManyToManyField(Profile, related_name = "likes", blank = True)
-    comments = models.ManyToManyField(Profile, related_name = "comments", blank = True)
-    
+        return self.name
+    @classmethod
+    def search_profile(cls, name):
+        return cls.objects.filter(user__username__icontains=name).all()
+class Follow(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
     def __str__(self):
-        return f'{self.image_name} '
-    
-    def save_post(self):
-        '''calling the inbuilt save method '''
-        self.save()
-        
-    @property
-    def saved_likes(self):
-        return self.likes.count()
-        
+        return f'{self.follower} Follow'
 class Comment(models.Model):
-    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
-    user_profile = models.ForeignKey(Profile,null=True,on_delete=models.SET_NULL)
-    comment = models.CharField(blank=False, max_length=255)
-    post_linked = models.ForeignKey(Post,null=True,on_delete=models.SET_NULL)
-
+    comment = models.TextField()
+    user = models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='comment')
+    photo = models.ForeignKey('Image',on_delete=models.CASCADE,related_name='comment')
+    class Meta:
+        ordering = ["-pk"]
     def __str__(self):
-        return self.comment
-
-class Like(models.Model):
-    profile_vote = models.ForeignKey(Profile,null=True,on_delete=models.SET_NULL)
-    post_voted = models.ForeignKey(Post,null=True,on_delete=models.SET_NULL,related_name='likes')
-
-    def save_like(self):
-        self.save()
+        return f'{self.user.name} Image'

@@ -50,9 +50,9 @@ INSTALLED_APPS = [
     
     
 ]
-CRISPY_ALLOWED_TEMPLATES_PACKS = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATES_PACKS = 'bootstrap4'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 1
 
@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'insta',
+        'NAME': 'instagra',
         'USER': 'raine',
     'PASSWORD':'gift1234',
     }
@@ -157,10 +157,8 @@ cloudinary.config(
     api_key ="825938427599163",
     api_secret ="KFYIt-ZMSDBPjQWaBqNhcNnXVLc"
 )
-LOGIN_REDIRECT_URL = 'index'
-# LOGOUT_REDIRECT_URL = '/login'
-# SMTP CONFIGURATIONS
-LOGIN_URL ='login'
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = '/login'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT = 587
