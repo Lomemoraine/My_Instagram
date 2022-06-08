@@ -1,7 +1,7 @@
 ### My-Instagram
 #### Description
 An django based  clone that mimics the famous instagram photo app.
-![Landing page photo](https://github.com/Lomemoraine/Raines_Photo_Gallery/blob/master/media/images/projectt.png)
+
 ## Author
 
 * Lorraine Chepkemoi
