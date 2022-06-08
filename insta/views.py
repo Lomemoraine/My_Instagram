@@ -39,17 +39,17 @@ def profile(request, username):
     images = request.user.profile.images.all()
     print(images)
     if request.method == 'POST':
-        # user_form = UpdateUserForm(request.POST, instance=request.user)
+       
         prof_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if prof_form.is_valid():
-            # user_form.save()
+           
             prof_form.save()
             return HttpResponseRedirect(request.path_info)
     else:
-        # user_form = UpdateUserForm(instance=request.user)
+       
         prof_form = ProfileForm(instance=request.user.profile)
     params = {
-        # 'user_form': user_form,
+       
         'prof_form': prof_form,
         'images': images,
     }
@@ -66,7 +66,7 @@ def update_profile(request):
     else:
         form = ProfileForm()
     return render(request,'edit_profile.html',{"form":form})
-# @login_required(login_url='login')
+
 def search_profile(request):
     if 'search_user' in request.GET and request.GET['search_user']:
         name = request.GET.get("search_user")
@@ -81,7 +81,7 @@ def search_profile(request):
     else:
         message = "You did not make a selection"
     return render(request, 'results.html', {'message': message})
-# @login_required(login_url='login')
+
 def user_profile(request, username):
     user_prof = get_object_or_404(User, username=username)
     if request.user == user_prof:
@@ -101,21 +101,21 @@ def user_profile(request, username):
         'follow_status': follow_status
     }
     return render(request, 'user_profile.html', params)
-# @login_required(login_url='login')
+
 def unfollow(request, to_unfollow):
     if request.method == 'GET':
         user_two_profile = Profile.objects.get(pk=to_unfollow)
         unfollow_d = Follow.objects.filter(follower=request.user.profile, followed=user_two_profile)
         unfollow_d.delete()
         return redirect('user_profile', user_two_profile.user.username)
-# @login_required(login_url='login')
+
 def follow(request, to_follow):
     if request.method == 'GET':
         user_three_profile = Profile.objects.get(pk=to_follow)
         follow_s = Follow(follower=request.user.profile, followed=user_three_profile)
         follow_s.save()
         return redirect('user_profile', user_three_profile.user.username)
-# @login_required(login_url='login')
+
 def comment(request, id):
     image = get_object_or_404(Image, pk=id)
     comments = image.comment.all()
