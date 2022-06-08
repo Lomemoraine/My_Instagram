@@ -9,12 +9,72 @@ from django.contrib import messages
 from .models import Profile
 
 # Create your views here.
+# @login_required()
+# def index(request):
+#     comment_form = CommentForm()
+#     all_posts = Post.objects.all().order_by('id').reverse()
+    
+#     if request.method == 'POST':
+#         comment_form = CommentForm(request.POST)
+#         if comment_form.is_valid():
+#             post_linked_id = request.POST.get('post_linked')
+            
+#             user = request.user
+#             user_profile = Profile.objects.get(user=user.id)
+#             post_linked = Post.objects.get(id=post_linked_id)
+#             comment = comment_form.cleaned_data['comment']
+            
+#             comment = Comment(
+#                 user=user,
+#                 user_profile=user_profile,
+#                 comment=comment,
+#                 post_linked=post_linked
+#                 )
+#             comment.save()
+#             return redirect('index')
+#         context={
+        
+#         # 'post_comments':post_comments,
+#         'comment_form':comment_form,
+#         # 'all_votes':all_votes
+#     }
+   
+#     return render(request,'index.html',{"all_posts":all_posts[::1]},context=context)
 @login_required()
 def index(request):
     all_posts = Post.objects.all().order_by('id').reverse()
-   
+  
     
-    return render(request,'index.html',{"all_posts":all_posts[::1]})
+
+    comment_form = CommentForm()
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            post_linked_id = request.POST.get('post_linked')
+
+            user = request.user
+            user_profile = Profile.objects.get(user=user.id)
+            post_linked = Post.objects.get(id=post_linked_id)
+            comment = comment_form.cleaned_data['comment']
+
+            comment = Comment(
+                user=user,
+                user_profile=user_profile,
+                comment=comment,
+                post_linked=post_linked
+                )
+            comment.save()
+            return redirect('index')
+
+    context={
+        'all_posts':all_posts,
+        
+        'comment_form':comment_form,
+        
+    }
+    return render(request,'index.html',context=context)
+
 def signup(request):
     if request.method == "POST":
         form =RegisterForm(request.POST)

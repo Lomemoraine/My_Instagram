@@ -29,3 +29,12 @@ class Post(models.Model):
     def save_post(self):
         '''calling the inbuilt save method '''
         self.save()
+        
+class Comment(models.Model):
+    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
+    user_profile = models.ForeignKey(Profile,null=True,on_delete=models.SET_NULL)
+    comment = models.CharField(blank=False, max_length=255)
+    post_linked = models.ForeignKey(Post,null=True,on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.comment
