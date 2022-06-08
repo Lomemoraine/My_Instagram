@@ -22,3 +22,19 @@ class TestProfile(TestCase):
         self.profile_test.save_profile()
         after = Profile.objects.all()
         self.assertTrue(len(after) > 0)
+        
+class PostTestsClass(TestCase):
+    def setUp(self):
+        self.profile_test = Profile( user=User(name='Joe',username='Joe'))
+        self.profile_test.save()
+
+        self.post_test = Image(id=1, caption="Greenery",image="default.png",likes=0,comments="comment test", hashtags="#nature", user=self.profile_test)
+
+    def test_insatance(self):
+        self.assertTrue(isinstance(self.post_test, Image))
+
+    def test_save_image(self):
+        self.post_test.save_image()
+        images = Image.objects.all()
+        self.assertTrue(len(images) > 0)
+        
