@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
-from .models import Profile
+from .models import Like, Profile
 
 # Create your views here.
 # @login_required()
@@ -43,6 +43,8 @@ from .models import Profile
 @login_required()
 def index(request):
     all_posts = Post.objects.all().order_by('id').reverse()
+    post_comments = Comment.objects.all()
+    all_votes = Like.objects.all()
   
     
 
@@ -69,8 +71,9 @@ def index(request):
 
     context={
         'all_posts':all_posts,
-        
+        'all_votes':all_votes,
         'comment_form':comment_form,
+        'post_comments':post_comments,
         
     }
     return render(request,'index.html',context=context)
@@ -158,6 +161,22 @@ def createPost(request):
         'c_form':c_form
     }
     return render(request,'create_post.html',context=context)
+
+@login_required()
+def like_image(request,user_id,post_id):
+    user_profile=User.objects.get(id=user_id)
+
+    post_voted = Post.objects.get(id=post_id)
+    profile_vote = Profile.objects.get(user=user_profile)
+
+    print(post_voted,profile_vote)
+    new_like = Like(
+        profile_vote=profile_vote,
+        post_voted=post_voted
+    )
+    new_like.save_like()
+
+    return redirect('index')
         
 
 

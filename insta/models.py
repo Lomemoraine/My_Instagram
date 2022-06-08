@@ -20,7 +20,7 @@ class Post(models.Model):
     image_name = models.CharField(max_length=50,blank=True)
     image_caption = models.TextField(max_length=255,blank=True)
     image_owner = models.ForeignKey(Profile,null=True,on_delete=models.SET_NULL)
-    likes = models.ManyToManyField(Profile, related_name = "likes", blank = True)
+    # likes = models.ManyToManyField(Profile, related_name = "likes", blank = True)
     comments = models.ManyToManyField(Profile, related_name = "comments", blank = True)
     
     def __str__(self):
@@ -30,6 +30,10 @@ class Post(models.Model):
         '''calling the inbuilt save method '''
         self.save()
         
+    @property
+    def saved_likes(self):
+        return self.likes.count()
+        
 class Comment(models.Model):
     user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
     user_profile = models.ForeignKey(Profile,null=True,on_delete=models.SET_NULL)
@@ -38,3 +42,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+class Like(models.Model):
+    profile_vote = models.ForeignKey(Profile,null=True,on_delete=models.SET_NULL)
+    post_voted = models.ForeignKey(Post,null=True,on_delete=models.SET_NULL,related_name='likes')
+
+    def save_like(self):
+        self.save()
