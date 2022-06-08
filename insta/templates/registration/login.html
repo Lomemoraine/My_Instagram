@@ -9,8 +9,12 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Engagement&display=swap" rel="stylesheet">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 {% block content %}
 <div class="section">
@@ -24,8 +28,8 @@
                     <div class="card-body mb-1 mr-3 ml-3">
                         <form action="" method="post" novalidate>
                             <div class="logo text-center mb-2 mt-2">
-                                <a class="no-underline " href="{%url 'index'%}">
-                                    Instant-Gram
+                                <a class="no-underline " href="/login">
+                                  <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"alt=""width="150"class="d-inline-block align-text-top"/>
                                 </a>
                             </div>
                             {% csrf_token%} {% bootstrap_form form layout='inline' %}
@@ -38,7 +42,7 @@
                 </div>
                 <div class="card mt-2">
                     <div class="card-body mt-3 mb-3 mr-2 ml-4">
-                        Don't have an account? <a href="/signup">Sign up</a>
+                        Don't have an account? <a href="{% url 'index'%}">Sign up</a>
                     </div>
                 </div>
                 <br><br><br>

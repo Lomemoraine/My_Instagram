@@ -5,7 +5,7 @@ from django.http import Http404,HttpResponseRedirect
 from .forms import UploadForm,ProfileForm,CommentForm,RegisterForm
 from .models import Image,Profile,Follow
 from django.contrib.auth.models import User
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def sign_up(request):
     if request.method == 'POST':
@@ -16,6 +16,7 @@ def sign_up(request):
     else:
         form = RegisterForm()
     return render(request, 'registration/signup.html', {'form': form})
+@login_required(login_url='login')
 def index(request):
     images = Image.images()
     users = User.objects.exclude(id=request.user.id)
