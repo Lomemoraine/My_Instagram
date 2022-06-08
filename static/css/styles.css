@@ -14,6 +14,19 @@ body{
       margin-left: 40%;
       margin-bottom: 5%;
   } */
+  .appstore {
+    display: flex;
+    justify-content: center;
+  }
+  .loginnn{
+    margin-left: 35%;
+  }
+  
+  .appstore img {
+    height: 40px;
+    margin: 0 5px;
+  }
+
   .signup{
     width:fit-content;
     background-color:azure;
